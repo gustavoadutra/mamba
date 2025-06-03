@@ -370,7 +370,7 @@ setup(
     },
     python_requires=">=3.9",
     install_requires=[
-        "torch",
+        "torch==2.6.0",
         "packaging",
         "ninja",
         "einops",

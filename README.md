@@ -19,6 +19,18 @@ with an efficient hardware-aware design and implementation in the spirit of [Fla
 
 ## Installation
 
+## Installation on conda environments (GUSTAVO VERSION - don't break your pc like she did with my heart)
+Pytorch does not install NVCC by default, so you need to install it manually.
+``` sh
+conda install nvidia::cuda-nvcc
+```
+
+Then, install the package with:
+``` sh
+pip install .
+```
+
+## Installation (GITHUB VERSION - NOT TESTED)
 - [Option] `pip install causal-conv1d>=1.4.0`: an efficient implementation of a simple causal Conv1d layer used inside the Mamba block.
 - `pip install mamba-ssm`: the core Mamba package.
 - `pip install mamba-ssm[causal-conv1d]`: To install core Mamba package and causal-conv1d.
