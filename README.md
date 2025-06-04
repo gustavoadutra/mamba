@@ -1,33 +1,34 @@
 # Mamba
 
-![Mamba](assets/selection.png "Selective State Space")
-> **Mamba: Linear-Time Sequence Modeling with Selective State Spaces**\
-> Albert Gu*, Tri Dao*\
-> Paper: https://arxiv.org/abs/2312.00752
+## Installation on conda environments (GUSTAVO VERSION)
 
-![Mamba-2](assets/ssd_algorithm.png "State Space Dual Model")
-> **Transformers are SSMs: Generalized Models and Efficient Algorithms**\
->     **Through Structured State Space Duality**\
-> Tri Dao*, Albert Gu*\
-> Paper: https://arxiv.org/abs/2405.21060
-
-## About
-
-Mamba is a new state space model architecture showing promising performance on information-dense data such as language modeling, where previous subquadratic models fall short of Transformers.
-It is based on the line of progress on [structured state space models](https://github.com/state-spaces/s4),
-with an efficient hardware-aware design and implementation in the spirit of [FlashAttention](https://github.com/Dao-AILab/flash-attention).
-
-## Installation
-
-## Installation on conda environments (GUSTAVO VERSION - don't break your pc like she did with my heart)
-Pytorch does not install NVCC by default, so you need to install it manually.
 ``` sh
-conda install nvidia::cuda-nvcc
+conda config --set channel_priority false
+conda create -n [env-name] python=3.12
+conda activate [env-name]
+conda install nvidia::cuda-nvcc --no-channel-priority
+git clone https://github.com/gustavoadutra/mamba
+cd mamba/
+pip3 install .
 ```
+Test Usage:
+``` python
+import torch
+from mamba_ssm import Mamba
 
-Then, install the package with:
-``` sh
-pip install .
+batch, length, dim = 2, 64, 16
+x = torch.randn(batch, length, dim).to("cuda")
+model = Mamba(
+    # This module uses roughly 3 * expand * d_model^2 parameters
+    d_model=dim, # Model dimension d_model
+    d_state=16,  # SSM state expansion factor
+    d_conv=4,    # Local convolution width
+    expand=2,    # Block expansion factor
+).to("cuda")
+y = model(x)
+assert y.shape == x.shape
+
+print(y)
 ```
 
 ## Installation (GITHUB VERSION - NOT TESTED)
