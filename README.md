@@ -6,11 +6,20 @@
 conda config --set channel_priority false
 conda create -n [env-name] python=3.12
 conda activate [env-name]
-conda install nvidia::cuda-nvcc --no-channel-priority
-git clone https://github.com/gustavoadutra/mamba
-cd mamba/
+conda install nvidia::cuda-nvcc 
+git clone https://github.com/gustavoadutra/mamba && cd mamba/
 pip3 install .
 ```
+
+## You can also install the requirements with:
+``` sh
+conda config --set channel_priority false
+git clone https://github.com/gustavoadutra/mamba && cd mamba/
+conda env create -n [env-name] -f mamba-conda.yml
+conda activate [env-name]
+pip install .
+```
+
 Test Usage:
 ``` python
 import torch
